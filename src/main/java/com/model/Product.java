@@ -7,10 +7,10 @@ public class Product {
 
 
     //constructor using fields
-    public Product(int id, String pname, double price){
+    public Product(int id, String name, double price){
         super();
         this.id = id;
-        this.name = pname;
+        this.name = name;
         this.price = price;
     }
     //getters and setters

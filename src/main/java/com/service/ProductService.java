@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ProductService implements IProductService {
+public class ProductService  {
 
-    @Override
     public List<Product> findAll(){
-        ArrayList<Product> products = new ArrayList<Product>();
+        ArrayList<Product> products = new ArrayList<>();
         products.add(new Product(100, "Mobile", 9000.00));
         products.add(new Product(101, "Smart TV", 60000.00));
         products.add(new Product(102, "Washing Machine",  9000.00 ));
@@ -19,6 +18,10 @@ public class ProductService implements IProductService {
         products.add(new Product(105, "Refrigerator ", 10000.00));
         return products;
     }
+
+
+
+
 
 
 }
