@@ -1,5 +1,6 @@
-package com;
+package com.service;
 
+import com.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
