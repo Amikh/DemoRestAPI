@@ -10,14 +10,9 @@ import java.util.List;
 public class ProductService  {
 
     public List<Product> findAll(){
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(new Product(100, "Mobile", 9000.00));
-        products.add(new Product(101, "Smart TV", 60000.00));
-        products.add(new Product(102, "Washing Machine",  9000.00 ));
-        products.add(new Product(103, "Laptop",  24000.00));
-        products.add(new Product(104, "Air Conditioner",  30000.00));
-        products.add(new Product(105, "Refrigerator ", 10000.00));
-        return products;
+        List<Product> list = new ArrayList<>();
+        list.add(new Product(101,"Mob",9000.0));
+        return list;
     }
 
 
