@@ -3,11 +3,8 @@ package com.service;
 import com.model.Product;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @Log
 @Service
