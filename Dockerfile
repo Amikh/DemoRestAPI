@@ -1,7 +1,5 @@
-FROM openjdk:11-alpine
+FROM openjdk:8-jre-alpine3.9
 
-ARG WAR_FILE=./target/*.jar
-
-COPY ${WAR_FILE} app.jar
-
-CMD ["java", "-Dspring.profiles.active=docker", "-jar", "app.jar"]
+COPY target/*.jar /app.jar
+ 
+CMD ["java", "-jar", "/app.jar"]
