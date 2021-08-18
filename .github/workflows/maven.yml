@@ -24,6 +24,6 @@ jobs:
 
   build_image:
      runs-on: ubuntu-latest
-      steps:
-      - name: Extract Version
-        run: ls -al
+     steps:
+     - name: Extract Version
+       run: ls -al
