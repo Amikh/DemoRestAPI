@@ -23,4 +23,21 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
+
+    # Build and push the Docker image
+  push_to_registry:
+    name: Build and push Docker image to Docker Hub
+    
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Check out the repo
+          uses: actions/checkout@v2
+        
+        - name: Build and tag image
+          # run: docker build -t "gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest" .
+          run: ls -al
+
+        
       
