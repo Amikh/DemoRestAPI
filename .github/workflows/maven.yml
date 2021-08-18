@@ -26,18 +26,17 @@ jobs:
 
 
     # Build and push the Docker image
-  push_to_registry:
-    name: Build and push Docker image to Docker Hub
+  dockerize:
     
-      runs-on: ubuntu-latest
+     runs-on: ubuntu-latest
 
-      steps:
-        - name: Check out the repo
-          uses: actions/checkout@v2
+     steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
         
-        - name: Build and tag image
+     - name: Build and tag image
+       run: ls -al
           # run: docker build -t "gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest" .
-          run: ls -al
 
         
       
