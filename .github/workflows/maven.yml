@@ -26,4 +26,4 @@ jobs:
      runs-on: ubuntu-latest
      steps:
      - name: Extract Version
-       run: ls -al
+       run: docker build -t appdemo:01 . 
