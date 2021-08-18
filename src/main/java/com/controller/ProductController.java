@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/sla")
+    @RequestMapping(value = "/task/sla")
     public String  getSla() {
         return productService.isSla();
     }
