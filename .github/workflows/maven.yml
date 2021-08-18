@@ -25,3 +25,7 @@ jobs:
       run: docker build -t appdemo:01 .   
     - name: Info
       run: docker images
+    - name: Pushing a repository image to Docker Hub
+      run: |
+         echo  ${{secrets.DOCKERHUB_PASS}}
+         echo "DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}"
