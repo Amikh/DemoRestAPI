@@ -1,0 +1,120 @@
+#name: Pipeline
+#
+#on: [push]
+#
+#jobs:
+#  lint:
+#    runs-on: ubuntu-18.04
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Setup Python environment
+#      uses: actions/setup-python@v1.1.1
+#    - name: Install requirements
+#      run: pip install --quiet --requirement requirements.txt
+#    - name: Lint code
+#      run: |
+#        flake8 --ignore=E501,E231 *.py
+#        pylint --disable=C0301 --disable=C0326 test_app.py
+#    - name: Run unit tests
+#      run: |
+#        python -m unittest --verbose --failfast
+#
+#  build_image:
+#    needs: [lint]
+#    runs-on: ubuntu-18.04
+#    steps:
+#    - uses: actions/checkout@v1
+#    - name: Set up GCloud
+#      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+#      with:
+#        version: '274.0.1'
+#        service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
+#        service_account_key: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
+#    - run: |
+#        gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+#        gcloud config set run/region ${{ secrets.GCP_REGION }}
+#        gcloud auth configure-docker
+#        gcloud info
+#    - name: Build and tag image
+#      run: docker build -t "gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest" .
+#    - name: Push to GCP image registry
+#      run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest
+#  test_image:
+#    needs: [build_image]
+#    runs-on: ubuntu-18.04
+#    steps:
+#    - name: Set up GCloud
+#      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+#      with:
+#        version: '274.0.1'
+#        service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
+#        service_account_key: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
+#    - run: |
+#        gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+#        gcloud config set run/region ${{ secrets.GCP_REGION }}
+#        gcloud auth configure-docker
+#        gcloud info
+#
+#    - name: Run unit tests in container
+#      run: docker run "gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest" -m unittest --verbose --failfast
+#
+#
+#  deploy:
+#    needs: [test_image]
+#    runs-on: ubuntu-18.04
+#    steps:
+#    - name: Set up GCloud
+#      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+#      with:
+#        version: '274.0.1'
+#        service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
+#        service_account_key: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
+#    - run: |
+#        gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+#        gcloud config set run/region ${{ secrets.GCP_REGION }}
+#        gcloud info
+#
+#    - name: Deploy to Cloud Run
+#      run: gcloud run deploy ${{ env.APPLICATION_NAME }} --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest --platform=managed --allow-unauthenticated
+#
+#
+#
+#
+#  # This workflow will build a Java project with Maven
+## For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+#
+#name: Java CI with Maven
+#
+#on:
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Set up JDK 11
+#      uses: actions/setup-java@v2
+#      with:
+#        java-version: '11'
+#        distribution: 'adopt'
+#    - name: Build with Maven
+#      run: mvn -B package --file pom.xml
+#
+#    - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKERHUB_USER }}
+#          password: ${{ secrets.DOCKERHUB_PASS }}
+#    - name: Build and push
+#         id: docker_build
+#         uses: docker/build-push-action@v2
+#         with:
+#          context: ./
+#          file: ./Dockerfile
+#          push: true
+#          tags: ${{ secrets.DOCKERHUB_USER }}/appdemo:01
+#
