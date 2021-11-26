@@ -23,7 +23,7 @@ jobs:
       run: mvn -B package --file pom.xml
       
     - name: Docker build
-      run: docker build -t ${{ secrets.DOCKERHUB_USER }}/appdemo:01 .   
+      run: docker build -t ${{ secrets.DOCKERHUB_USER }}/appdemo:02 .
 
     - name: Pushing a repository image to Docker Hub
       run: | 
