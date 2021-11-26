@@ -28,5 +28,5 @@ jobs:
     - name: Pushing a repository image to Docker Hub
       run: | 
              docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASS }}
-             docker push ${{ secrets.DOCKERHUB_USER }}/appdemo:01
+             docker push ${{ secrets.DOCKERHUB_USER }}/appdemo:02
          
