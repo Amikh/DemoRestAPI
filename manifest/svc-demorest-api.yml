@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: demo-svc
+  namespace: demo
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '3000'
+spec:
+  selector:
+    app: demo
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30081
+  type: NodePort
